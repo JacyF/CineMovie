@@ -18,12 +18,6 @@ export default function App() {
 
   const [watched, setWatched] = useLocalStorageState([], 'watched');
 
-  // const [watched, setWatched] = useState([]);
-  // const [watched, setWatched] = useState(function(){
-  //   const storedValue = localStorage.getItem('watched');
-  //   return JSON.parse(storedValue)
-  // });
-
   function handleSelectMovie(id) {
     setSelectedId((selectedId) => (id === selectedId ? null : id));
   }
@@ -34,17 +28,11 @@ export default function App() {
 
   function handleAddWatched(movie) {
     setWatched((watched) => [...watched, movie]);
-
-    // localStorage.setItem("watched", JSON.stringify([...watched, movie]))
   }
 
   function handleDeleteWatched(id) {
     setWatched(watched => watched.filter(movie => movie.imdbID !== id))
   }
-
-  
-
-  
 
   return (
     <>
@@ -55,7 +43,6 @@ export default function App() {
       </NavBar>
       <Main>
         <Box>
-          {/* {isLoading ? <Loader /> : <MovieList movies={movies} />} */}
           {isLoading && <Loader />}
           {!isLoading && !error && (
             <MovieList movies={movies} onSelectMovie={handleSelectMovie} />
@@ -118,22 +105,6 @@ function Search({ query, setQuery }) {
         inputEl.current.focus();
         setQuery('')
   })
-
-  // useEffect(function(){
-  //   function callBack(e) {
-
-      
-  //     if (e.code === 'Enter') {
-  //       if (document.activeElement === inputEl.current) return;
-  //       inputEl.current.focus();
-  //       setQuery('')
-  //     }
-  //   }
-
-  //   document.addEventListener('keydown', callBack);
-
-  //   return () => document.removeEventListener('keydown', callBack);
-  // }, [setQuery])
 
   return (
     <input
@@ -240,7 +211,6 @@ function MovieDetails({ selectedId, onClose, onAddWatched, watched }) {
       poster,
       imdbRating: Number(imdbRating),
       runtime: Number(runtime.split(" ").at(0)),
-      // runtime,
       userRating,
       countRatingDecisions : countRef.current,
     };
@@ -249,23 +219,7 @@ function MovieDetails({ selectedId, onClose, onAddWatched, watched }) {
     onClose();
   }
 
-  useKey('Escape', onClose)
-
-  // useEffect(function(){
-
-  //   function callBack(e){
-  //     if(e.code === 'Escape') {
-  //       onClose()
-  //     }
-  //   }
-
-  //   document.addEventListener('keydown', callBack)
-
-  //   return function() {
-  //     document.removeEventListener('keydown', callBack);
-  //   }
-
-  // }, [onClose])
+  useKey('Escape', onClose);
 
   useEffect(
     function () {
